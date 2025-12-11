@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       to,
       record: record ? true : undefined,
       recordingStatusCallback: record ? `${origin}/api/twilio/webhook/voice` : undefined,
-      url: `${origin}/api/twilio/ivr-action`,
+      url: `${origin}/api/twilio/webhook/voice`,
     });
     logs.push({ ts: Date.now(), type: 'action', event: 'outbound-call', data: { to, sid: call.sid } });
     return json({ sid: call.sid, status: call.status });
