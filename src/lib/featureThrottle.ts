@@ -2,8 +2,8 @@ import { enforceCooldown } from './rateLimit';
 
 const TEN_MINUTES_MS = 10 * 60 * 1000;
 
-export function claimFeatureSlot(identifier: string) {
-  return enforceCooldown(`feature:${identifier}`, TEN_MINUTES_MS);
+export function claimFeatureSlot(identifier: string, ip?: string) {
+  return enforceCooldown(`feature:${identifier}`, TEN_MINUTES_MS, ip);
 }
 
 export function formatFeatureThrottleMessage(retryAfterMs: number) {

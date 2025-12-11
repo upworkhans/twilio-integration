@@ -7,7 +7,7 @@ import { claimFeatureSlot, formatFeatureThrottleMessage } from '@/lib/featureThr
 
 export async function GET(req: NextRequest) {
   const ip = getRequestIp(req);
-  const throttle = claimFeatureSlot(ip);
+  const throttle = claimFeatureSlot(ip, ip);
   if (!throttle.allowed) {
     return json({ error: formatFeatureThrottleMessage(throttle.retryAfterMs) }, 429);
   }

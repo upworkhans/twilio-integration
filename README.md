@@ -40,6 +40,7 @@ Required variables:
 - `TWILIO_PHONE_NUMBER` (E.164, e.g., +91...) — ideally Indian number for local testing
 - `NEXT_PUBLIC_APP_ORIGIN` — your public HTTPS origin (ngrok URL during dev)
 - `JWT_SECRET` (optional)
+- `TWILIO_IP_WHITELIST` (optional) — comma-separated list of IP addresses to bypass rate limiting (e.g., `192.168.1.1,10.0.0.1`)
 
 3) Run the dev server
 
@@ -101,6 +102,7 @@ UI helpers:
 - Never expose Twilio credentials client-side. All secrets are in environment variables server-side.
 - Webhooks are validated with `X-Twilio-Signature` against `TWILIO_AUTH_TOKEN`.
 - Critical endpoints (SMS send, outbound call) use a token-bucket rate limiter.
+- IP whitelisting: Set `TWILIO_IP_WHITELIST` (comma-separated IPs) to bypass rate limiting for trusted IPs. Whitelisted IPs skip both token-bucket and cooldown restrictions.
 - Inputs are validated (phone numbers in E.164, message body length, etc.).
 - Use HTTPS via ngrok in development.
 

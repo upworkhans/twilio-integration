@@ -8,11 +8,11 @@ import { claimFeatureSlot, formatFeatureThrottleMessage } from '@/lib/featureThr
 
 export async function POST(req: NextRequest) {
   const ip = getRequestIp(req);
-  const throttle = claimFeatureSlot(ip);
+  const throttle = claimFeatureSlot(ip, ip);
   if (!throttle.allowed) {
     return json({ error: formatFeatureThrottleMessage(throttle.retryAfterMs) }, 429);
   }
-  if (!tokenBucketAllow(`call:${ip}`, 6, 3)) return tooManyRequests();
+  if (!tokenBucketAllow(`call:${ip}`, 6, 3, ip)) return tooManyRequests();
 
   const body = await req.json().catch(() => null);
   const parsed = outboundCallSchema.safeParse(body);

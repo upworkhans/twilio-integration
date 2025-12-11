@@ -8,7 +8,7 @@ import { claimFeatureSlot, formatFeatureThrottleMessage } from '@/lib/featureThr
 // Generates an Access Token with Voice grant for browser-based voice (Twilio Client)
 export async function GET(req: NextRequest) {
   const ip = getRequestIp(req);
-  const throttle = claimFeatureSlot(ip);
+  const throttle = claimFeatureSlot(ip, ip);
   if (!throttle.allowed) {
     return json({ error: formatFeatureThrottleMessage(throttle.retryAfterMs) }, 429);
   }
